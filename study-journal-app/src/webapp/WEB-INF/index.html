@@ -54,11 +54,11 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* Theme Toggle - Now in normal flow */
+        /* Theme Toggle */
         .theme-toggle-container {
             position: relative;
             display: flex;
@@ -115,9 +115,10 @@
             margin-bottom: 4px;
         }
 
+        /* UNIFORM GRID - All columns same width */
         .main-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 30px;
             margin-bottom: 30px;
         }
@@ -263,7 +264,6 @@
             color: var(--text-light);
         }
 
-        /* Combined notes field */
         .study-notes {
             margin-bottom: 24px;
         }
@@ -603,86 +603,58 @@
             transform: scale(1.05);
         }
 
-        /* Learning Inspiration Section */
-        .inspiration-section {
-            margin-top: 40px;
-            padding: 28px;
-            background: var(--card-bg);
-            border-radius: 18px;
-            box-shadow: 0 10px 30px var(--shadow-color);
-            border: 1px solid var(--border-color);
-        }
-
-        .inspiration-section h2 {
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 24px;
-            font-size: 1.5rem;
-            padding-bottom: 16px;
-            border-bottom: 2px solid var(--border-color);
-        }
-
-        .inspiration-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-        }
-
-        .inspiration-card {
-            background: linear-gradient(135deg, var(--card-bg), rgba(37, 99, 235, 0.05));
-            padding: 22px;
-            border-radius: 14px;
-            border-left: 4px solid var(--secondary-color);
-            transition: transform 0.3s;
-        }
-
-        .inspiration-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.15);
-        }
-
-        .inspiration-text {
-            font-size: 1.1rem;
-            font-style: italic;
-            color: var(--text-color);
-            line-height: 1.7;
-            margin-bottom: 12px;
-            text-align: center;
-        }
-
-        .inspiration-author {
-            text-align: right;
-            color: var(--text-light);
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-
-        /* Toast notification - Green bar that lasts 3 seconds */
+        /* IMPROVED TOAST NOTIFICATION */
         .toast {
             position: fixed;
             top: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100%);
+            right: 20px;
             background: linear-gradient(135deg, var(--success-color), #059669);
             color: white;
-            padding: 14px 28px;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease-out;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(16, 185, 129, 0.4);
+            transform: translateX(400px);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             z-index: 1000;
-            font-weight: 500;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 12px;
-            max-width: 90%;
+            max-width: 400px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
 
         .toast.show {
-            transform: translateX(-50%) translateY(0);
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, var(--warning-color), #DC2626);
+            box-shadow: 0 10px 40px rgba(239, 68, 68, 0.4);
         }
 
         .toast-icon {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+
+        .toast-message {
+            font-size: 0.85rem;
+            opacity: 0.9;
         }
 
         .max-entries-warning {
@@ -695,6 +667,177 @@
             padding: 10px;
             border-radius: 8px;
             border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        /* Learning Wisdom Quotes Section */
+        .wisdom-section {
+            margin-top: 40px;
+            padding: 32px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(124, 58, 237, 0.05));
+            border-radius: 18px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            border: 2px solid var(--border-color);
+        }
+
+        .wisdom-section h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 32px;
+            font-size: 1.8rem;
+            padding-bottom: 16px;
+            border-bottom: 3px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .wisdom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .wisdom-card {
+            background: var(--card-bg);
+            padding: 28px;
+            border-radius: 16px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wisdom-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            font-size: 5rem;
+            color: var(--primary-color);
+            opacity: 0.1;
+            font-family: Georgia, serif;
+        }
+
+        .wisdom-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px var(--shadow-color);
+            border-color: var(--primary-color);
+        }
+
+        .wisdom-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--text-color);
+            line-height: 1.8;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .wisdom-author {
+            text-align: right;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1rem;
+            padding-top: 12px;
+            border-top: 2px solid var(--border-color);
+        }
+
+        /* Date Entry Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s;
+            border: 2px solid var(--border-color);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .modal-header h2 {
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            margin: 0;
+            border: none;
+            padding: 0;
+        }
+
+        .modal-close {
+            background: var(--warning-color);
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: #DC2626;
+            transform: rotate(90deg);
+        }
+
+        .modal-date {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            padding: 12px;
+            background: rgba(37, 99, 235, 0.05);
+            border-radius: 10px;
+            font-weight: 600;
         }
 
         /* Scrollbar styling */
@@ -739,7 +882,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- Theme Toggle - Now in normal flow -->
+        <!-- Theme Toggle -->
         <div class="theme-toggle-container">
             <div class="theme-toggle" id="themeToggle">
                 <span id="themeIcon">🌙</span>
@@ -758,7 +901,7 @@
                 <h2>📝 Today's Study Entry</h2>
                 
                 <div class="date-selector">
-                    <label for="entryDate">Study Date (Up to 10 days in advance)</label>
+                    <label for="entryDate">Study Date (Last 30 days or next 10 days)</label>
                     <input type="date" id="entryDate" max="" min="">
                 </div>
 
@@ -793,7 +936,6 @@
                     </div>
                 </div>
 
-                <!-- Combined notes field -->
                 <div class="study-notes">
                     <label for="studyNotes">
                         Study Notes
@@ -860,8 +1002,8 @@ You can use bullet points or write in paragraphs. Be specific about your learnin
             </div>
 
             <div class="card">
-                <h2>💡 Learning Inspiration</h2>
-                <div class="entries-list" id="inspirationList">
+                <h2>💡 Study Tips</h2>
+                <div class="entries-list">
                     <div class="inspiration-item" style="margin-bottom: 20px; padding: 16px; background: rgba(37, 99, 235, 0.05); border-radius: 12px; border-left: 4px solid var(--secondary-color);">
                         <h3 style="color: var(--primary-color); margin-bottom: 8px; font-size: 1rem;">🎯 The Feynman Technique</h3>
                         <p style="color: var(--text-color); font-size: 0.95rem; line-height: 1.6;">
@@ -884,30 +1026,57 @@ You can use bullet points or write in paragraphs. Be specific about your learnin
             </div>
         </div>
 
-        <!-- Learning Inspiration Section -->
-        <div class="inspiration-section">
+        <!-- Learning Wisdom Section -->
+        <div class="wisdom-section">
             <h2>🌟 Learning Wisdom</h2>
-            <div class="inspiration-container">
-                <div class="inspiration-card">
-                    <div class="inspiration-text">"The beautiful thing about learning is that no one can take it away from you."</div>
-                    <div class="inspiration-author">– B.B. King</div>
+            <div class="wisdom-grid">
+                <div class="wisdom-card">
+                    <div class="wisdom-text">The beautiful thing about learning is that no one can take it away from you.</div>
+                    <div class="wisdom-author">— B.B. King</div>
                 </div>
-                <div class="inspiration-card">
-                    <div class="inspiration-text">"Education is the most powerful weapon which you can use to change the world."</div>
-                    <div class="inspiration-author">– Nelson Mandela</div>
+                <div class="wisdom-card">
+                    <div class="wisdom-text">Education is the most powerful weapon which you can use to change the world.</div>
+                    <div class="wisdom-author">— Nelson Mandela</div>
                 </div>
-                <div class="inspiration-card">
-                    <div class="inspiration-text">"The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice."</div>
-                    <div class="inspiration-author">– Brian Herbert</div>
+                <div class="wisdom-card">
+                    <div class="wisdom-text">The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice.</div>
+                    <div class="wisdom-author">— Brian Herbert</div>
+                </div>
+                <div class="wisdom-card">
+                    <div class="wisdom-text">Live as if you were to die tomorrow. Learn as if you were to live forever.</div>
+                    <div class="wisdom-author">— Mahatma Gandhi</div>
+                </div>
+                <div class="wisdom-card">
+                    <div class="wisdom-text">The more that you read, the more things you will know. The more that you learn, the more places you'll go.</div>
+                    <div class="wisdom-author">— Dr. Seuss</div>
+                </div>
+                <div class="wisdom-card">
+                    <div class="wisdom-text">Education is not preparation for life; education is life itself.</div>
+                    <div class="wisdom-author">— John Dewey</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Toast Notification - Green bar that lasts 3 seconds -->
+    <!-- Improved Toast Notification -->
     <div class="toast" id="saveToast">
         <span class="toast-icon">✅</span>
-        <span>Study entry saved successfully!</span>
+        <div class="toast-content">
+            <div class="toast-title">Success!</div>
+            <div class="toast-message">Study entry saved</div>
+        </div>
+    </div>
+
+    <!-- Date Entries Modal -->
+    <div class="modal" id="dateEntriesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Study Entries</h2>
+                <button class="modal-close" id="modalClose">×</button>
+            </div>
+            <div class="modal-date" id="modalDate"></div>
+            <div id="modalEntriesList"></div>
+        </div>
     </div>
 
     <script>
@@ -925,18 +1094,6 @@ You can use bullet points or write in paragraphs. Be specific about your learnin
             4: '🙂',
             5: '😊'
         };
-
-        // Learning inspiration quotes
-        const quotes = [
-            { text: "The beautiful thing about learning is that no one can take it away from you.", author: "B.B. King" },
-            { text: "Education is the most powerful weapon which you can use to change the world.", author: "Nelson Mandela" },
-            { text: "The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice.", author: "Brian Herbert" },
-            { text: "Live as if you were to die tomorrow. Learn as if you were to live forever.", author: "Mahatma Gandhi" },
-            { text: "The more that you read, the more things you will know. The more that you learn, the more places you'll go.", author: "Dr. Seuss" },
-            { text: "Education is not preparation for life; education is life itself.", author: "John Dewey" },
-            { text: "Learning is not attained by chance, it must be sought for with ardor and attended to with diligence.", author: "Abigail Adams" },
-            { text: "The mind is not a vessel to be filled, but a fire to be kindled.", author: "Plutarch" }
-        ];
 
         // Theme management
         const themeToggle = document.getElementById('themeToggle');
@@ -969,13 +1126,15 @@ You can use bullet points or write in paragraphs. Be specific about your learnin
             return localDate.toISOString().split('T')[0];
         }
 
-        // Initialize date input limits (today to 10 days in advance)
+        // Initialize date input limits (30 days back to 10 days ahead)
         function initDateLimits() {
             const dateInput = document.getElementById('entryDate');
             const today = new Date();
             
-            // Set min date to today
-            dateInput.min = getLocalDateString(today);
+            // Set min date to 30 days ago
+            const minDate = new Date(today);
+            minDate.setDate(today.getDate() - 30);
+            dateInput.min = getLocalDateString(minDate);
             
             // Set max date to 10 days from today
             const maxDate = new Date(today);
@@ -1020,23 +1179,38 @@ You can use bullet points or write in paragraphs. Be specific about your learnin
         function formatDisplayDate(dateStr) {
             const date = new Date(dateStr);
             const localDate = new Date(date.getTime() + (date.getTimezoneOffset() * 60000));
-            return localDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            return localDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
         }
 
-        // Show toast notification (green bar for 3 seconds)
+        // Improved toast notification
         let toastTimeout;
-        function showToast(message) {
+        function showToast(title, message, isError = false) {
             const toast = document.getElementById('saveToast');
-            const messageEl = toast.querySelector('span:not(.toast-icon)');
+            const icon = toast.querySelector('.toast-icon');
+            const titleEl = toast.querySelector('.toast-title');
+            const messageEl = toast.querySelector('.toast-message');
+            
+            titleEl.textContent = title;
             messageEl.textContent = message;
+            
+            if (isError) {
+                toast.classList.add('error');
+                icon.textContent = '❌';
+            } else {
+                toast.classList.remove('error');
+                icon.textContent = '✅';
+            }
             
             // Clear any existing timeout
             if (toastTimeout) {
                 clearTimeout(toastTimeout);
+                toast.classList.remove('show');
             }
             
             // Show toast
-            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
             
             // Hide after 3 seconds
             toastTimeout = setTimeout(() => {
@@ -1080,23 +1254,12 @@ You can use bullet points or write in paragraphs. Be specific about your learnin
             const entryDate = document.getElementById('entryDate').value;
             
             if (!subject) {
-                showToast('Please enter what you studied!');
+                showToast('Missing Information', 'Please enter what you studied!', true);
                 return;
             }
             
             if (!selectedMood) {
-                showToast('Please rate your productivity!');
-                return;
-            }
-
-            // Check if date is within allowed range (today to 10 days ahead)
-            const selectedDate = new Date(entryDate);
-            const today = new Date();
-            const tenDaysAhead = new Date(today);
-            tenDaysAhead.setDate(today.getDate() + 10);
-            
-            if (selectedDate < today || selectedDate > tenDaysAhead) {
-                showToast('Please select a date within the next 10 days!');
+                showToast('Missing Rating', 'Please rate your productivity!', true);
                 return;
             }
 
@@ -1107,7 +1270,7 @@ You can use bullet points or write in paragraphs. Be specific about your learnin
             });
             
             if (entriesForDate.length >= 3) {
-                showToast('Maximum 3 study entries per day reached!');
+                showToast('Limit Reached', 'Maximum 3 study entries per day!', true);
                 return;
             }
 
@@ -1133,8 +1296,8 @@ You can use bullet points or write in paragraphs. Be specific about your learnin
             saveBtn.classList.add('save-animation');
             setTimeout(() => saveBtn.classList.remove('save-animation'), 800);
             
-            // Show toast for 3 seconds
-            showToast('Study entry saved successfully! 📚');
+            // Show improved toast
+            showToast('Study Entry Saved!', `${subject} - ${formatDisplayDate(entryDate)}`);
             
             // Reset form
             document.getElementById('studySubject').value = '';
@@ -1156,9 +1319,59 @@ You can use bullet points or write in paragraphs. Be specific about your learnin
                 entries = entries.filter(e => e.id !== id);
                 saveEntries();
                 updateUI();
-                showToast('Study entry deleted');
+                showToast('Entry Deleted', 'Study entry has been removed');
             }
         }
+
+        // Show entries for a specific date (modal)
+        function showDateEntries(dateStr) {
+            const entriesForDate = entries.filter(e => {
+                const entryDate = getLocalDateString(e.date);
+                return entryDate === dateStr;
+            });
+
+            if (entriesForDate.length === 0) {
+                showToast('No Entries', `No study entries for ${formatDisplayDate(dateStr)}`, true);
+                return;
+            }
+
+            const modal = document.getElementById('dateEntriesModal');
+            const modalDate = document.getElementById('modalDate');
+            const modalList = document.getElementById('modalEntriesList');
+
+            modalDate.textContent = formatDisplayDate(dateStr);
+            
+            modalList.innerHTML = entriesForDate.map(entry => {
+                const date = new Date(entry.date);
+                return `
+                    <div class="entry-item">
+                        <div class="entry-header">
+                            <div>
+                                <span class="entry-mood">${entry.mood}</span>
+                                ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+                            </div>
+                            <button class="delete-btn" onclick="deleteEntry(${entry.id}); document.getElementById('dateEntriesModal').classList.remove('show'); updateUI();">Delete</button>
+                        </div>
+                        <span class="entry-subject">${entry.subject}</span>
+                        ${entry.notes ? `<div class="entry-text">${entry.notes}</div>` : ''}
+                    </div>
+                `;
+            }).join('');
+
+            modal.classList.add('show');
+        }
+
+        // Close modal
+        document.getElementById('modalClose').addEventListener('click', () => {
+            document.getElementById('dateEntriesModal').classList.remove('show');
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('dateEntriesModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('dateEntriesModal')) {
+                document.getElementById('dateEntriesModal').classList.remove('show');
+            }
+        });
 
         // Render entries list
         function renderEntries() {
@@ -1294,18 +1507,22 @@ You can use bullet points or write in paragraphs. Be specific about your learnin
                         <span class="day-mood">${moodEmojis[avgMood]}</span>
                         ${dayEntries.length > 1 ? `<span class="entry-count">${dayEntries.length}</span>` : ''}
                     `;
+                    
+                    // Click to view entries for this date
+                    div.addEventListener('click', () => {
+                        showDateEntries(dateStr);
+                    });
                 } else {
                     div.innerHTML = `<span class="day-number">${day}</span>`;
+                    
+                    // Click to set date for new entry
+                    div.addEventListener('click', () => {
+                        document.getElementById('entryDate').value = dateStr;
+                        selectedEntryDate = dateStr;
+                        updateEntryCounter();
+                        showToast('Date Selected', `Ready to add entry for ${formatDisplayDate(dateStr)}`);
+                    });
                 }
-                
-                // Add click handler to select date
-                div.addEventListener('click', () => {
-                    const selectedDateStr = getLocalDateString(date.toISOString());
-                    document.getElementById('entryDate').value = selectedDateStr;
-                    selectedEntryDate = selectedDateStr;
-                    updateEntryCounter();
-                    showToast(`Date set to ${formatDisplayDate(selectedDateStr)}`);
-                });
                 
                 container.appendChild(div);
             }
@@ -1340,28 +1557,11 @@ You can use bullet points or write in paragraphs. Be specific about your learnin
             updateEntryCounter();
         }
 
-        // Rotate learning inspiration quotes
-        function rotateQuotes() {
-            const date = new Date();
-            const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
-            const quoteIndex = dayOfYear % quotes.length;
-            
-            // Rotate through 3 quotes starting from today's index
-            const inspirationCards = document.querySelectorAll('.inspiration-card');
-            for (let i = 0; i < 3; i++) {
-                const quoteIndexToUse = (quoteIndex + i) % quotes.length;
-                const quote = quotes[quoteIndexToUse];
-                inspirationCards[i].querySelector('.inspiration-text').textContent = `"${quote.text}"`;
-                inspirationCards[i].querySelector('.inspiration-author').textContent = `– ${quote.author}`;
-            }
-        }
-
         // Initialize
         loadTheme();
         loadEntries();
         initDateLimits();
         updateUI();
-        rotateQuotes();
 
         // Update entry counter when mood is selected
         document.querySelectorAll('.mood-btn').forEach(btn => {
