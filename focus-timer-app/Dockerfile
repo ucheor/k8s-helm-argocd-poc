@@ -1,16 +1,14 @@
+# Use nginx alpine for a lightweight image
 FROM nginx:alpine
 
-# Install necessary packages
-RUN apk add --no-cache nodejs npm
+# Remove default nginx website
+RUN rm -rf /usr/share/nginx/html/*
 
-# Copy application files
-COPY . /usr/share/nginx/html/
-
-# Copy custom nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copy our focus timer app
+COPY focus-timer-final.html /usr/share/nginx/html/index.html
 
 # Expose port 80
-EXPOSE 80
+EXPOSE 8081
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
