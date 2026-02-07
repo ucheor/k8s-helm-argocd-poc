@@ -1,3 +1,7 @@
+
+
+
+
 # Stage 1: Build WAR with Maven
 FROM maven:3.8.6-openjdk-11-slim AS builder
 WORKDIR /build
