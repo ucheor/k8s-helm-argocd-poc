@@ -23,8 +23,8 @@ WORKDIR /app
 # Copy the JAR file from build stage
 COPY --from=build /app/target/restaurant-ordering-app.jar app.jar
 
-# Expose port 3100
-EXPOSE 3100
+# Expose port 8080
+EXPOSE 8080
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
