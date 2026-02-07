@@ -5,10 +5,10 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy our focus timer app
-COPY focus-timer-final.html /usr/share/nginx/html/index.html
+COPY index.html /usr/share/nginx/html/index.html
 
 # Expose port 80
-EXPOSE 8081
+EXPOSE 80
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]

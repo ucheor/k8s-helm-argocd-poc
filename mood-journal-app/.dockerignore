@@ -1,0 +1,10 @@
+.git
+.gitignore
+README.md
+.DS_Store
+*.md
+target/classes
+target/test-classes
+target/maven-status
+src
+pom.xml
