@@ -8,7 +8,7 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY focus-timer-final.html /usr/share/nginx/html/index.html
 
 # Expose port 80
-EXPOSE 8081
+EXPOSE 80
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
