@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Ordering System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .menu-section {
+            padding: 30px;
+        }
+
+        .category {
+            margin-bottom: 30px;
+        }
+
+        .category-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .menu-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .item-price {
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-control button {
+            width: 35px;
+            height: 35px;
+            border: none;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s;
+        }
+
+        .quantity-control button:hover {
+            background: #764ba2;
+            transform: scale(1.1);
+        }
+
+        .quantity-control input {
+            width: 50px;
+            text-align: center;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .order-button {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .order-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .receipt-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .receipt-content {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .receipt {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .receipt-header {
+            text-align: center;
+            border-bottom: 2px dashed #333;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .receipt-header h2 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .receipt-separator {
+            border-top: 2px dashed #333;
+            margin: 15px 0;
+        }
+
+        .receipt-total {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .receipt-footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px dashed #333;
+        }
+
+        .close-button {
+            width: 100%;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .close-button:hover {
+            background: #764ba2;
+        }
+
+        .print-button {
+            width: 100%;
+            padding: 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .print-button:hover {
+            background: #218838;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .receipt-content, .receipt-content * {
+                visibility: visible;
+            }
+            .receipt-content {
+                position: absolute;
+                left: 0;
+                top: 0;
+                box-shadow: none;
+            }
+            .close-button, .print-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍽️ Restaurant Menu</h1>
+            <p>Select your items and place your order</p>
+        </div>
+
+        <div class="menu-section">
+            <!-- Starters -->
+            <div class="category">
+                <div class="category-title">🥖 Starters</div>
+                <div th:each="item : ${menuItems}" th:if="${item.category == 'Starters'}">
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <div class="item-name" th:text="${item.name}">Item Name</div>
+                        </div>
+                        <div class="item-price" th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 2)}">$0.00</div>
+                        <div class="quantity-control">
+                            <button onclick="changeQuantity(this, -1)">-</button>
+                            <input type="number" min="0" max="3" value="0" th:data-name="${item.name}" th:data-price="${item.price}">
+                            <button onclick="changeQuantity(this, 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Courses -->
+            <div class="category">
+                <div class="category-title">🍝 Main Courses</div>
+                <div th:each="item : ${menuItems}" th:if="${item.category == 'Main Courses'}">
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <div class="item-name" th:text="${item.name}">Item Name</div>
+                        </div>
+                        <div class="item-price" th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 2)}">$0.00</div>
+                        <div class="quantity-control">
+                            <button onclick="changeQuantity(this, -1)">-</button>
+                            <input type="number" min="0" max="3" value="0" th:data-name="${item.name}" th:data-price="${item.price}">
+                            <button onclick="changeQuantity(this, 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desserts -->
+            <div class="category">
+                <div class="category-title">🍰 Desserts</div>
+                <div th:each="item : ${menuItems}" th:if="${item.category == 'Desserts'}">
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <div class="item-name" th:text="${item.name}">Item Name</div>
+                        </div>
+                        <div class="item-price" th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 2)}">$0.00</div>
+                        <div class="quantity-control">
+                            <button onclick="changeQuantity(this, -1)">-</button>
+                            <input type="number" min="0" max="3" value="0" th:data-name="${item.name}" th:data-price="${item.price}">
+                            <button onclick="changeQuantity(this, 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drinks -->
+            <div class="category">
+                <div class="category-title">🥤 Drinks</div>
+                <div th:each="item : ${menuItems}" th:if="${item.category == 'Drinks'}">
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <div class="item-name" th:text="${item.name}">Item Name</div>
+                        </div>
+                        <div class="item-price" th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 2)}">$0.00</div>
+                        <div class="quantity-control">
+                            <button onclick="changeQuantity(this, -1)">-</button>
+                            <input type="number" min="0" max="3" value="0" th:data-name="${item.name}" th:data-price="${item.price}">
+                            <button onclick="changeQuantity(this, 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seasonal Special -->
+            <div class="category">
+                <div class="category-title">🌱 Seasonal Special</div>
+                <div th:each="item : ${menuItems}" th:if="${item.category == 'Seasonal Special'}">
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <div class="item-name" th:text="${item.name}">Item Name</div>
+                        </div>
+                        <div class="item-price" th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 2)}">$0.00</div>
+                        <div class="quantity-control">
+                            <button onclick="changeQuantity(this, -1)">-</button>
+                            <input type="number" min="0" max="3" value="0" th:data-name="${item.name}" th:data-price="${item.price}">
+                            <button onclick="changeQuantity(this, 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="order-button" onclick="placeOrder()">Place Order & Get Receipt</button>
+        </div>
+    </div>
+
+    <!-- Receipt Modal -->
+    <div id="receiptModal" class="receipt-modal">
+        <div class="receipt-content">
+            <div id="receiptDisplay" class="receipt"></div>
+            <button class="print-button" onclick="window.print()">🖨️ Print Receipt</button>
+            <button class="close-button" onclick="closeReceipt()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        function changeQuantity(button, delta) {
+            const input = button.parentElement.querySelector('input');
+            let value = parseInt(input.value) || 0;
+            value = Math.max(0, Math.min(3, value + delta));
+            input.value = value;
+        }
+
+        function placeOrder() {
+            const inputs = document.querySelectorAll('input[type="number"]');
+            const order = {};
+            let hasItems = false;
+
+            inputs.forEach(input => {
+                const quantity = parseInt(input.value) || 0;
+                if (quantity > 0) {
+                    const itemName = input.getAttribute('data-name');
+                    order[itemName] = quantity;
+                    hasItems = true;
+                }
+            });
+
+            if (!hasItems) {
+                alert('Please select at least one item!');
+                return;
+            }
+
+            fetch('/order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(order)
+            })
+            .then(response => response.json())
+            .then(data => displayReceipt(data))
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error processing order!');
+            });
+        }
+
+        function displayReceipt(receipt) {
+            let html = `
+                <div class="receipt-header">
+                    <h2>RESTAURANT RECEIPT</h2>
+                    <p>${new Date().toLocaleString()}</p>
+                </div>
+            `;
+
+            if (receipt.items && receipt.items.length > 0) {
+                receipt.items.forEach(item => {
+                    const name = item.menuItem.name;
+                    const qty = item.quantity;
+                    const total = item.lineTotal.toFixed(2);
+                    html += `
+                        <div class="receipt-item">
+                            <span>${name} x${qty}</span>
+                            <span>$${total}</span>
+                        </div>
+                    `;
+                });
+            }
+
+            const subtotal = receipt.subtotal.toFixed(2);
+            const taxRate = (receipt.taxRate * 100).toFixed(0);
+            const taxAmount = receipt.taxAmount.toFixed(2);
+            const total = receipt.total.toFixed(2);
+
+            html += `
+                <div class="receipt-separator"></div>
+                <div class="receipt-item">
+                    <span>Subtotal</span>
+                    <span>$${subtotal}</span>
+                </div>
+                <div class="receipt-item">
+                    <span>Tax (${taxRate}%)</span>
+                    <span>$${taxAmount}</span>
+                </div>
+                <div class="receipt-separator"></div>
+                <div class="receipt-item receipt-total">
+                    <span>TOTAL</span>
+                    <span>$${total}</span>
+                </div>
+                <div class="receipt-footer">
+                    <p>Thank you for your order!</p>
+                    <p>Please come again! 😊</p>
+                </div>
+            `;
+
+            document.getElementById('receiptDisplay').innerHTML = html;
+            document.getElementById('receiptModal').style.display = 'flex';
+        }
+
+        function closeReceipt() {
+            document.getElementById('receiptModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -6,5 +6,6 @@ COPY src ./src
 RUN mvn clean package -DskipTests -B
 
 # Stage 2: Runtime with Tomcat
-FROM tomcat:9-jdk11-openjdk-slim
+#FROM tomcat:9-jdk11-openjdk-slim
+FROM tomcat:9.0.73-jdk11-temurin
 COPY --from=builder /build/target/mood-journal.war /usr/local/tomcat/webapps/ROOT.war
