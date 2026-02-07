@@ -878,6 +878,46 @@
         .save-animation {
             animation: saveAnimation 0.8s ease-out;
         }
+
+        /* Motivational Message with Pulse Animation */
+        .motivation-box {
+            margin-top: 24px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(124, 58, 237, 0.08));
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+            text-align: center;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .motivation-box p {
+            color: var(--text-color);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin: 0 0 12px 0;
+            font-weight: 500;
+        }
+
+        .motivation-box .lets-go {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-top: 8px;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+                border-color: var(--primary-color);
+            }
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 0 20px 10px rgba(37, 99, 235, 0);
+                border-color: var(--secondary-color);
+            }
+        }
     </style>
 </head>
 <body>
@@ -907,7 +947,7 @@
 
                 <div class="study-area">
                     <label for="studySubject">Subject / Topic Studied</label>
-                    <input type="text" id="studySubject" placeholder="e.g., Linux Commands, Ingress Controller, GitOps with ArgoCD">
+                    <input type="text" id="studySubject" placeholder="e.g., JavaScript Functions, Calculus, Biology Chapter 3">
                 </div>
 
                 <div class="study-area">
@@ -954,6 +994,13 @@ You can use bullet points or write in paragraphs. Be specific about your learnin
                 <button class="btn" id="saveEntry">Save Study Entry 📚</button>
                 <div class="entry-counter" id="entryCounter">Entries today: 0/3</div>
                 <div id="maxEntriesWarning" class="max-entries-warning" style="display: none;">Maximum 3 entries per day reached!</div>
+                
+                <!-- Motivational Message -->
+                <div class="motivation-box">
+                    <p>Every study session, every extra reading brings us closer to our goals.</p>
+                    <p>As long as we keep learning and growing, it's going to happen.</p>
+                    <div class="lets-go">Let's Go!! 🚀</div>
+                </div>
             </div>
 
             <div class="card">
