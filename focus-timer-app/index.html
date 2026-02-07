@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer | Productivity Focus</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-tomato"></i> Pomodoro Timer</h1>
+            <p class="subtitle">Focus. Work. Rest. Repeat.</p>
+        </header>
+
+        <main>
+            <div class="timer-section">
+                <div class="timer-display">
+                    <div class="time" id="time-display">25:00</div>
+                    <div class="timer-status" id="timer-status">Ready to Focus</div>
+                </div>
+
+                <div class="timer-controls">
+                    <button id="start-btn" class="btn btn-primary">
+                        <i class="fas fa-play"></i> Start
+                    </button>
+                    <button id="pause-btn" class="btn btn-secondary" disabled>
+                        <i class="fas fa-pause"></i> Pause
+                    </button>
+                    <button id="reset-btn" class="btn btn-secondary">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                    <button id="skip-btn" class="btn btn-secondary">
+                        <i class="fas fa-forward"></i> Skip
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="settings-card">
+                    <h2><i class="fas fa-cog"></i> Timer Settings</h2>
+                    <div class="setting-group">
+                        <label for="work-duration">Work Duration (minutes):</label>
+                        <input type="number" id="work-duration" min="1" max="60" value="25">
+                    </div>
+                    <div class="setting-group">
+                        <label for="break-duration">Break Duration (minutes):</label>
+                        <input type="number" id="break-duration" min="1" max="30" value="5">
+                    </div>
+                    <div class="setting-group">
+                        <label for="long-break">Long Break (minutes):</label>
+                        <input type="number" id="long-break" min="5" max="60" value="15">
+                    </div>
+                    <div class="setting-group">
+                        <label for="sessions-before-long">Sessions before long break:</label>
+                        <input type="number" id="sessions-before-long" min="1" max="8" value="4">
+                    </div>
+                </div>
+
+                <div class="sounds-card">
+                    <h2><i class="fas fa-music"></i> Ambient Sounds</h2>
+                    <div class="sounds-grid">
+                        <div class="sound-option" data-sound="rain">
+                            <i class="fas fa-cloud-rain"></i>
+                            <span>Rain</span>
+                            <div class="sound-control">
+                                <input type="range" class="volume-slider" min="0" max="100" value="30">
+                                <button class="play-btn"><i class="fas fa-play"></i></button>
+                            </div>
+                        </div>
+                        <div class="sound-option" data-sound="coffee">
+                            <i class="fas fa-coffee"></i>
+                            <span>Coffee Shop</span>
+                            <div class="sound-control">
+                                <input type="range" class="volume-slider" min="0" max="100" value="30">
+                                <button class="play-btn"><i class="fas fa-play"></i></button>
+                            </div>
+                        </div>
+                        <div class="sound-option" data-sound="white">
+                            <i class="fas fa-wind"></i>
+                            <span>White Noise</span>
+                            <div class="sound-control">
+                                <input type="range" class="volume-slider" min="0" max="100" value="30">
+                                <button class="play-btn"><i class="fas fa-play"></i></button>
+                            </div>
+                        </div>
+                        <div class="sound-option" data-sound="nature">
+                            <i class="fas fa-tree"></i>
+                            <span>Nature</span>
+                            <div class="sound-control">
+                                <input type="range" class="volume-slider" min="0" max="100" value="30">
+                                <button class="play-btn"><i class="fas fa-play"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <h2><i class="fas fa-chart-line"></i> Today's Progress</h2>
+                <div class="progress-info">
+                    <div class="progress-stat">
+                        <span class="stat-label">Completed Sessions:</span>
+                        <span class="stat-value" id="completed-sessions">0</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-label">Total Focus Time:</span>
+                        <span class="stat-value" id="total-focus-time">0 min</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-label">Current Streak:</span>
+                        <span class="stat-value" id="current-streak">1</span>
+                    </div>
+                </div>
+                <div class="progress-visual">
+                    <div class="session-dots" id="session-dots">
+                        <!-- Session dots will be added dynamically -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Stay productive! • Pomodoro Technique • Timer resets daily</p>
+        </footer>
+    </div>
+
+    <div id="notification" class="notification">
+        <i class="fas fa-bell"></i>
+        <span id="notification-text"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
